@@ -1876,7 +1876,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     initializeApp: function initializeApp() {
-      var appID = "115794309760c46";
+      var appID = "231585257ff99b2";
       var cometChatSettings = new _cometchat_pro_chat__WEBPACK_IMPORTED_MODULE_0__["CometChat"].AppSettingsBuilder().subscribePresenceForAllUsers().setRegion("eu").build();
       _cometchat_pro_chat__WEBPACK_IMPORTED_MODULE_0__["CometChat"].init(appID, cometChatSettings).then(function () {
         console.log("Initialization completed successfully");
@@ -2067,8 +2067,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 //
-//
-// @ is an alias to /src
 
 
 
@@ -2077,18 +2075,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   components: {
     NavBar: _components_NavBar_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     Spinner: _components_Spinner_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
-  },
-  data: function data() {
-    return {
-      username: "",
-      avatar: "",
-      uid: "",
-      sendingMessage: false,
-      chatMessage: "",
-      loggingOut: false,
-      groupMessages: [],
-      loadingMessages: false
-    };
   },
   mounted: function mounted() {
     var _this = this;
@@ -2122,6 +2108,18 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       }
     }));
   },
+  data: function data() {
+    return {
+      username: "",
+      avatar: "",
+      uid: "",
+      sendingMessage: false,
+      chatMessage: "",
+      loggingOut: false,
+      groupMessages: [],
+      loadingMessages: false
+    };
+  },
   created: function created() {
     this.getLoggedInUser();
   },
@@ -2140,10 +2138,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
         console.log(error);
       });
-    },
-    scrollToBottom: function scrollToBottom() {
-      var chat = document.getElementById("msg-page");
-      chat.scrollTo(0, chat.scrollHeight + 30);
     },
     sendGroupMessage: function sendGroupMessage() {
       var _this3 = this;
@@ -2235,7 +2229,7 @@ __webpack_require__.r(__webpack_exports__);
       };
 
       if (this.username && this.password) {
-        axios.post("http://localhost:8000/api/login", userData).then(function (response) {
+        axios.post("http://localhost:8000/login", userData).then(function (response) {
           _this.logUserInToCometChat(response.data.token);
         })["catch"](function (error) {
           alert(error.response.data.message);
@@ -2263,6 +2257,15 @@ __webpack_require__.r(__webpack_exports__);
       }, function (error) {
         _this2.showSpinner = false;
         alert("Whops. Something went wrong. This commonly happens when you enter a username that doesn't exist. Check the console for more information");
+
+        _this2.$router.push({
+          name: 'login',
+          params: {
+            username: _this2.username,
+            authenticated: true
+          }
+        });
+
         console.log("Login failed with error:", error.code);
       });
     },
@@ -2347,7 +2350,7 @@ __webpack_require__.r(__webpack_exports__);
             password: this.password,
             password_confirmation: this.password_confirmation
           };
-          axios.post("http://localhost:8000/api/register", userData).then(function (response) {
+          axios.post("http://localhost:8000/register", userData).then(function (response) {
             if (response.data) {
               _this.createUserOnCometChat(_this.username);
             }
@@ -2356,6 +2359,11 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       }
+    },
+    redirectToLogin: function redirectToLogin() {
+      this.$router.push({
+        name: 'login'
+      });
     },
     createUserOnCometChat: function createUserOnCometChat(username) {
       var url, data, userResponse, userJson;
@@ -2366,15 +2374,16 @@ __webpack_require__.r(__webpack_exports__);
               url = "https://api-eu.cometchat.io/v2.0/users";
               data = {
                 uid: username,
-                name: "".concat(username, " sample")
+                name: "".concat(username, " sample"),
+                avatar: 'https://data-eu.cometchat.io/assets/images/avatars/captainamerica.png'
               };
               _context.prev = 2;
               _context.next = 5;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(url, {
                 method: 'POST',
                 headers: new Headers({
-                  appid: "115794309760c46",
-                  apikey: "fa924db7a929e90041fa34ba365ab437ca113338",
+                  appid: "231585257ff99b2",
+                  apikey: "9e05a313c1c516ffee4e9d60436d137a99bbdd84",
                   'Content-Type': 'application/json'
                 }),
                 body: JSON.stringify(data)
@@ -2417,8 +2426,8 @@ __webpack_require__.r(__webpack_exports__);
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(url, {
                 method: 'POST',
                 headers: new Headers({
-                  appid: "115794309760c46",
-                  apikey: "fa924db7a929e90041fa34ba365ab437ca113338",
+                  appid: "231585257ff99b2",
+                  apikey: "9e05a313c1c516ffee4e9d60436d137a99bbdd84",
                   'Content-Type': 'application/json'
                 })
               }));
@@ -2462,8 +2471,8 @@ __webpack_require__.r(__webpack_exports__);
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch(url, {
                 method: 'POST',
                 headers: new Headers({
-                  appid: "115794309760c46",
-                  apikey: "fa924db7a929e90041fa34ba365ab437ca113338",
+                  appid: "231585257ff99b2",
+                  apikey: "9e05a313c1c516ffee4e9d60436d137a99bbdd84",
                   'Content-Type': 'application/json'
                 }),
                 body: JSON.stringify(data)
@@ -2493,18 +2502,13 @@ __webpack_require__.r(__webpack_exports__);
       }, null, null, [[2, 12]]);
     },
     sendTokenToServer: function sendTokenToServer(token, uid) {
-      axios.post("http://localhost:8000/api/update/token", {
+      axios.post("http://localhost:8000/update/token", {
         token: token,
         uid: uid
       }).then(function (response) {
         console.log("Token updated successfully", response);
       })["catch"](function (error) {
         alert(error.response.data.message);
-      });
-    },
-    redirectToLogin: function redirectToLogin() {
-      this.$router.push({
-        name: 'login'
       });
     }
   }
@@ -55027,32 +55031,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
 
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 var app = new Vue({
@@ -55550,8 +55533,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/yemiwebby/tutorial/comet/laravel-chat/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/yemiwebby/tutorial/comet/laravel-chat/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /src/projects_laravel/chat-laravel-vue/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /src/projects_laravel/chat-laravel-vue/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

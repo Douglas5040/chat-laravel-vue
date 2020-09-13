@@ -17,7 +17,7 @@
 
                 let cometChatSettings = new CometChat.AppSettingsBuilder()
                     .subscribePresenceForAllUsers()
-                    .setRegion("us")
+                    .setRegion("eu")
                     .build();
 
                 CometChat.init(appID, cometChatSettings).then(

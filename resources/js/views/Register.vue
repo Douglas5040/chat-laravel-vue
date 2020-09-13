@@ -57,7 +57,7 @@
                             password_confirmation: this.password_confirmation
                         };
 
-                        axios.post(`http://localhost:8000/api/register`, userData)
+                        axios.post(`http://localhost:8000/register`, userData)
                             .then(response => {
                                 if (response.data) {
                                     this.createUserOnCometChat(this.username);
@@ -142,7 +142,7 @@
                 }
             },
             sendTokenToServer(token, uid) {
-                axios.post(`http://localhost:8000/api/update/token`, {token, uid})
+                axios.post(`http://localhost:8000/update/token`, {token, uid})
                     .then(response => {
                         console.log("Token updated successfully", response);
                     }).catch(error => {

@@ -1,4 +1,3 @@
-// app/Http/Controllers/UserController.php
 <?php
 namespace App\Http\Controllers;
 
@@ -55,7 +54,7 @@ class UserController extends Controller
             return false;
         }
     }
-    
+
     public function updateToken(Request $request) {
         $username = $request->get('uid');
         $token = $request->get('token');
